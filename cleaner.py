@@ -37,20 +37,20 @@ def organize_files_in_selected_directory():
         show_completion_message()
 
 def show_completion_message():
+    # Destroy the main window
+    root.destroy()
+
     # Create a new window for the completion message
-    completion_window = tk.Toplevel(root)
+    completion_window = tk.Tk()
     completion_window.title("Organization Complete")
 
     # Display a message
     completion_label = tk.Label(completion_window, text="Organization complete!")
     completion_label.pack(pady=20)
 
-    # Add a button to close the completion window
+    # Add a button to close the completion window and exit the application
     close_button = tk.Button(completion_window, text="Close", command=completion_window.destroy)
-    close_button.pack(pady=10)
-
-    # Close the main window
-    root.destroy()
+    close_button.pack(pady=10, padx=20)
 
 # Create the main window
 root = tk.Tk()
