@@ -48,13 +48,17 @@ def show_completion_message():
     completion_window = ThemedTk(theme="equilux")
     completion_window.title("Organization Complete")
 
+    # Create a frame for the completion message
+    frame_c = ttk.Frame(completion_window, width=370, height=50)
+    frame_c.pack(fill=tk.BOTH, expand=True)
+
     # Display a message
-    completion_label = ttk.Label(completion_window, text="Organization complete!")
-    completion_label.pack(pady=20, padx=10)
+    completion_label = ttk.Label(frame_c, text="Organization complete!")
+    completion_label.grid(row=0, column=0, padx=10, pady=10)
 
     # Add a button to close the completion window and exit the application
-    close_button = ttk.Button(completion_window, text="Close", command=completion_window.destroy)
-    close_button.pack(pady=10, padx=20)
+    close_button = ttk.Button(frame_c, text="Close", command=completion_window.destroy)
+    close_button.grid(row=1, column=0, columnspan=2, pady=10)
 
 # Create the main window
 root = ThemedTk(theme="equilux")
@@ -63,7 +67,7 @@ root.title("File Organizer")
 # Create a StringVar to store the directory path
 directory_var = tk.StringVar()
 
-frame_a = ttk.Frame(width=370, height=50)
+frame_a = ttk.Frame(root, width=370, height=50)
 frame_a.pack(fill=tk.BOTH, expand=True)
 
 # Create a button to open a directory dialog
