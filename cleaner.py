@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.ttk as ttk
 from tkinter import filedialog
 import os
 import shutil
@@ -8,6 +9,7 @@ def organize_files(directory_path):
 
     image_folder = os.path.join(directory_path, 'Images')
     document_folder = os.path.join(directory_path, 'Documents')
+    installer_folder = os.path.join(directory_path, 'Installers')
     other_folder = os.path.join(directory_path, 'Other')
 
     for file in files:
@@ -17,6 +19,8 @@ def organize_files(directory_path):
             move_to_folder(file_path, image_folder)
         elif file.lower().endswith(('.pdf', '.doc', '.docx', '.txt')):
             move_to_folder(file_path, document_folder)
+        elif file.lower().endswith(('.exe')):
+            move_to_folder(file_path, installer_folder)
         else:
             move_to_folder(file_path, other_folder)
 
@@ -45,11 +49,11 @@ def show_completion_message():
     completion_window.title("Organization Complete")
 
     # Display a message
-    completion_label = tk.Label(completion_window, text="Organization complete!")
-    completion_label.pack(pady=20)
+    completion_label = ttk.Label(completion_window, text="Organization complete!")
+    completion_label.pack(pady=20, padx=10)
 
     # Add a button to close the completion window and exit the application
-    close_button = tk.Button(completion_window, text="Close", command=completion_window.destroy)
+    close_button = ttk.Button(completion_window, text="Close", command=completion_window.destroy)
     close_button.pack(pady=10, padx=20)
 
 # Create the main window
@@ -59,20 +63,21 @@ root.title("File Organizer")
 # Create a StringVar to store the directory path
 directory_var = tk.StringVar()
 
-# Create a Label and Entry for the user to input the directory path
-label = tk.Label(root, text="Choose Directory:")
-label.pack(pady=10)
-
-entry = tk.Entry(root, textvariable=directory_var, width=40)
-entry.pack(pady=10)
+frame_a = ttk.Frame(width=370,height=50)
+frame_b = ttk.Frame(width=200,height=200)
+frame_a.pack(fill=tk.BOTH, expand=True)
+frame_b.pack(fill=tk.BOTH, expand=True)
 
 # Create a button to open a directory dialog
-choose_directory_button = tk.Button(root, text="Choose Directory", command=get_directory)
-choose_directory_button.pack(pady=10)
+choose_directory_button = ttk.Button(frame_a, text="Choose Directory", command=get_directory)
+choose_directory_button.place(x=10 , y= 10)
+
+entry = ttk.Entry(frame_a, textvariable=directory_var, width=40)
+entry.place(x= 115 , y =11)
 
 # Create a button to organize files in the selected directory
-organize_files_button = tk.Button(root, text="Organize Files", command=organize_files_in_selected_directory)
-organize_files_button.pack(pady=10)
+organize_files_button = ttk.Button(frame_b, text="Organize Files", command=organize_files_in_selected_directory)
+organize_files_button.pack(pady=10, padx=10)
 
 # Run the main event loop
 root.mainloop()
